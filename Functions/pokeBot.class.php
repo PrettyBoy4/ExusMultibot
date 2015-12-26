@@ -234,7 +234,7 @@ class pokebot extends start
           $tsAdmin->sendMessage(1, $diffTemp, $this->multibotCore->config['multibotConfig']['pokeBot']['Admin_offline']);
         }
       }
-
+#sadasd
       #Czyszczenie tablicy z listą użytkowników do któych została wysłana wiadomośc w poprzedniej iteracji
       $this->sendedMessages = Array();
 

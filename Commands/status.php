@@ -3,7 +3,7 @@
   *
   * Kod całego pliku wykonywany jest w przypadku użycia komendy o nazwie pliku.
   *
-  * Tablica commandInfo
+  * Tablica command_info
   * (
   *   [command] => "Nazwa użytej komendy" Array(0 => "Pierwsy_człon", 1 => "Drugi_człon" ...)
   *   [clientId] => "Id użytkownika który wysłał wiadomość"
@@ -26,28 +26,28 @@
   * - getMultibotConfig() - Zwraca konfiguracje multibota
   */
 
-if(count($commandInfo['command']) == 2) {
-  $command = $commandInfo['command'][0]." ".$commandInfo['command'][1];
-  $id = $this->getInstanceId($commandInfo['command'][1]);
+if(count($command_info['command']) == 2) {
+  $command = $command_info['command'][0]." ".$command_info['command'][1];
+  $id = $this->getInstanceId($command_info['command'][1]);
   $status = $this->sendToInstance($id, $command);
   $r = $this->readFromInstance($id);
 
   if(!$status) {
-    $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_instance_connect_error'].$id);
-  }elseif($r == 'run') {
-    $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_status_function_run']);
-  }elseif($r == 'stop') {
-    $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_status_function_stop']);
-  }elseif($r == 'badfunction')  {
-    $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_unknown_function']);
+    $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['commands']['commands_instance_connect_error'].$id);
+  }elseif($r == 'runing') {
+    $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['command_status']['command_status_function_run']);
+  }elseif($r == 'stoped') {
+    $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['command_status']['command_status_function_stop']);
+  }elseif($r == 'badfunctionname')  {
+    $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['commands']['commands_unknown_function']);
   }else {
-    $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_unknown_error']);
+    $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['commands']['commands_unknown_error']);
   }
-}elseif(count($commandInfo['command']) < 2) {
-  $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_status_bad_argument']);
-}elseif(count($commandInfo['command']) > 2) {
-  $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_too_many_arguments']);
+}elseif(count($command_info['command']) < 2) {
+  $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['command_status']['command_status_bad_argument']);
+}elseif(count($command_info['command']) > 2) {
+  $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['commands']['commands_too_many_arguments']);
 }else {
-  $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_unknown_error']);
+  $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['commands']['commands_unknown_error']);
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
 /** $tsAdmin - Reference to ts3admin object
   *
-  * commandInfo
+  * command_info
   * Array(
   *   [command] => Array(
   *     0 => "command_name",
@@ -41,6 +41,12 @@
   * - $this->getTsAdmin()
   */
 
-// Code
-$tsAdmin->gm("Hello World");
+$server_info = $tsAdmin->serverInfo();
+
+$informacje = $server_info['data']['virtualserver_clientsonline'];
+
+$tsAdmin->sendMessage(1, $command_info['clientId'], "Liczba użytkowników online: " . $informacje);
+
+
+
 ?>

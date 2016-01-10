@@ -26,61 +26,32 @@
   * - getMultibotConfig() - Zwraca konfiguracje multibota
   */
 
-if(count($commandInfo['command']) == 2) {
-  if(isset($this->config['multibotConfig'][$commandInfo['command'][1]]))  {
-    if($this->getInstanceId($commandInfo['command'][1])) {
-      $id = $this->getInstanceId($commandInfo['command'][1]);
-      $statuss = $this->sendToInstance($id, "status ".$commandInfo['command'][1]);
-
-      if(!$statuss) {
-        $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_instance_connect_error'].$id);
-      }else {
-        $r = $this->readFromInstance($id);
-        $tsAdmin->sendMessage(1, $commandInfo['clientId'], $r);
-        if($r == "stop")  {
-          $status = $this->sendToInstance($id, "start ".$commandInfo['command'][1]);
-          if($status) {
-            $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_start_function_start']);
-          }else {
-            $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_start_function_error']);
-          }
-        }elseif($r == "run")  {
-          $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_start_function_run']);
-        }else {
-          $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_unknown_error']);
-        }
-      }
-    }else {
-      if(isset($this->conifg['multibotConfig'][$commandInfo['command'][1]]['primary_instance']) && ($this->conifg['multibotConfig'][$commandInfo['command'][1]]['primary_instance'] == true)) {
-        $status = $this->sendToInstance(0, "start ".$commandInfo['command'][1]);
-        $r = $this->readFromInstance(0);
-        if(!$status)  {
-          $id = 0;
-          $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_instance_connect_error'].$id);
-        }elseif($r == "started"){
-          $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_start_function_start']);
-        }else {
-          $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_unknown_error']);
-        }
-      }else {
-        $id = getSmallerIndex($this->instanceList['instances']);
-
-        $this->instanceList['instances'][$id]['functions'][] = $commandInfo['command'][1];
-        $this->instanceList['instances'][$id]['weight'] = $this->instanceList['instances'][$id]['weight'] + $this->config['multibotConfig'][$commandInfo['command'][1]]['weight'];
-
-        $status = $this->sendToInstance($id, "start ".$commandInfo['command'][1]);
-        $r = $this->readFromInstance($id);
-        if(!$status)  {
-          $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_instance_connect_error'].$id);
-        }elseif($r == "started"){
-          $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_start_function_start']);
-        }else {
-          $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_unknown_error']);
-        }
-      }
-    }
-  }else {
-    $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_unknown_function']);
-  }
+if(count($command_info['command']) > 1)	{
+	if(!isset($this->multibot_config[$command_info['command'][1]]))	{
+		$tsAdmin->sendMessage(1, $command_info['clientId'], "Podano nazwę nieistniejącej funckji");
+	}else{
+		
+		if(count($command_info['command']) == 3) {
+			if(is_int($command_info['command'][2]) && is_string($command_info['command'][1])) {
+					$status = $this->startFunction($command_info['command'][1], $command_info['command'][2]);
+					if($status == "1") {
+						$tsAdmin->sendMessage(1, $command_info['clientId'], "Funkcja została pomyślnie uruchomiona");
+					}else {
+						$tsAdmin->sendMessage(1, $command_info['clientId'], "Nie udało się uruchomić funkcji");
+					}
+			}else {
+				$tsAdmin->sendMessage(1, $command_info['clientId'], "Muszisz podać argumenty w następującej kolejności \"nazwa_funkcji id_instancji\"");
+			}
+		}else {
+			$status = $this->startFunction($command_info['command'][1]);
+			if($status == "1") {
+				$tsAdmin->sendMessage(1, $command_info['clientId'], "Funkcja została pomyślnie uruchomiona");
+			}else {
+				$tsAdmin->sendMessage(1, $command_info['clientId'], "Nie udało się uruchomić funkcji");
+			}
+		}
+	}
+}else{
+	$tsAdmin->sendMessage(1, $command_info['clientId'], "Funkcja wymaga podania conajmniej jednego argumentu");
 }
 ?>

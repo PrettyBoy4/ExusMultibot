@@ -25,24 +25,24 @@
   * - refreshMultibotConfig() - Odświrza listę komend multibota
   * - getMultibotConfig() - Zwraca konfiguracje multibota
   */
-if(count($commandInfo['command']) == 2) {
-  print_r($commandInfo['command']);
-  if(!is_int($commandInfo['command'][1] + 0))  {
-    $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_iconid_bad_id']);
+if(count($command_info['command']) == 2) {
+  print_r($command_info['command']);
+  if(!is_int($command_info['command'][1] + 0))  {
+    $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['command_iconid']['command_iconid_bad_id']);
   }else {
-    $channelInfo = $tsAdmin->channelInfo($commandInfo['command'][1]);
+    $channelInfo = $tsAdmin->channelInfo($command_info['command'][1]);
     if(!$channelInfo['success']) {
-      $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_iconid_bad_channel']);
+      $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['command_iconid']['command_iconid_bad_channel']);
     }elseif($channelInfo['data']['channel_icon_id'] == 0)  {
-      $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_iconid_no_icon']);
+      $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['command_iconid']['command_iconid_no_icon']);
     }else {
-      $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_iconid_icon'].$channelInfo['data']['channel_icon_id']);
+      $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['command_iconid']['command_iconid_icon'].$channelInfo['data']['channel_icon_id']);
     }
   }
-}elseif(count($commandInfo['command']) > 2) {
-  $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_too_many_arguments']);
+}elseif(count($command_info['command']) > 2) {
+  $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['commands']['commands_too_many_arguments']);
 }else {
-  $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_no_arguments']);
+  $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['commands']['commands_no_arguments']);
 }
 
 ?>

@@ -3,7 +3,7 @@
   *
   * Kod całego pliku wykonywany jest w przypadku użycia komendy o nazwie pliku.
   *
-  * Tablica commandInfo
+  * Tablica command_info
   * (
   *   [command] => "Nazwa użytej komendy" Array(0 => "Pierwsy_człon", 1 => "Drugi_człon" ...)
   *   [clientId] => "Id użytkownika który wysłał wiadomość"
@@ -25,21 +25,15 @@
   * - refreshMultibotConfig() - Odświrza listę komend multibota
   * - getMultibotConfig() - Zwraca konfiguracje multibota
   */
-if($commandInfo['command'][0] == "reload")  {
-  if($this->setConfig())  {
-    $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_reload_success']."Command-Core (Config)");
+if($command_info['command'][0] == "reload")  {
+  if($this->setConfig("commands"))  {
+    $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['command_reload']['command_reload_success']."Command-Core (Config)");
   }else {
-    $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_reload_error']."Command-Core (Config)");
-  }
-
-  if($this->setCommandList())  {
-    $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_reload_success']."Command-Core (Function List)");
-  }else {
-    $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_reload_error']."Command-Core (Function List)");
+    $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['command_reload']['command_reload_error']."Command-Core (Config)");
   }
 
   $return = Array();
-  foreach($this->instanceList['instances'] as $id => $value) {
+  foreach($this->instance_list['instances'] as $id => $value) {
   $this->sendToInstance($id, "reloadconfig");
   $return[$id] = $this->readFromInstance($id);
   }
@@ -47,11 +41,11 @@ if($commandInfo['command'][0] == "reload")  {
   if(!empty($return)) {
     foreach($return as $id => $value) {
       if($value == "success") {
-        $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_reload_success'].$id);
+        $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['command_reload']['command_reload_success'].$id);
       }elseif($value == "error")  {
-        $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_reload_error'].$id);
+        $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['command_reload']['command_reload_error'].$id);
       }else {
-        $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_unknown_error']);
+        $tsAdmin->sendMessage(1, $command_info['clientId'], $this->lang['commands']['commands_unknown_error']);
       }
     }
   }

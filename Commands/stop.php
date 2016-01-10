@@ -3,7 +3,7 @@
   *
   * Kod całego pliku wykonywany jest w przypadku użycia komendy o nazwie pliku.
   *
-  * Tablica commandInfo
+  * Tablica command_info
   * (
   *   [command] => "Nazwa użytej komendy" Array(0 => "Pierwsy_człon", 1 => "Drugi_człon" ...)
   *   [clientId] => "Id użytkownika który wysłał wiadomość"
@@ -25,38 +25,18 @@
   * - refreshMultibotConfig() - Odświrza listę komend multibota
   * - getMultibotConfig() - Zwraca konfiguracje multibota
   */
-if((count($commandInfo['command']) == 2) && ($commandInfo['command'][0] == "stop")) {
-  if(isset($this->config['multibotConfig'][$commandInfo['command'][1]]))  {
-    $id = $this->getInstanceId($commandInfo['command'][1]);
-    if($id !== false)  {
-      $sendStatus = $this->sendToInstance($id, "status ".$commandInfo['command'][1]);
-      $functionStatus = $this->readFromInstance($id);
-      if(!$sendStatus)  {
-        $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_instance_connect_error'].$id);
-      }elseif($functionStatus == "stop") {
-        $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_stop_function_stopped']);
-      }elseif($functionStatus == "run")  {
-        if((!$this->sendToInstance($id, "stop ".$commandInfo['command'][1])) && (!$this->sendToInstance($id, "status ".$commandInfo['command'][1]))) {
-          $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_instance_connect_error'].$id);
-        }else {
-          if(!$functionStatus = $this->readFromInstance($id)) {
-            $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_instance_connect_error'].$id);
-          }elseif($functionStatus == "stop") {
-            $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_stop_function_stop']);
-          }else {
-            $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_unknown_error']);
-          }
-        }
-      }elseif($functionStatus == "badfunction") {
-        $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_unknown_function']);
-      }elseif(!$functionStatus) {
-        $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_instance_read_error'].$id);
-      }
-    }else {
-      $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['command_stop_function_stopped']);
-    }
-  }else {
-    $tsAdmin->sendMessage(1, $commandInfo['clientId'], $this->lang['commands_unknown_function']);
-  }
+if((count($command_info['command']) == 2) && ($command_info['command'][0] == "stop")) {
+ if(isset($this->multibot_config[$command_info['command'][1]])) {
+ 	$status = $this->stopFunction($command_info['command'][1]);
+ 	if($status) {
+ 		$tsAdmin->sendMessage(1, $command_info['clientId'], "Pomyślnie wyłączono funkcję");
+ 	}else {
+ 		$tsAdmin->sendMessage(1, $command_info['clientId'], "Nie udało się wyłączyć funkji");
+ 	}
+ }else {
+ 	$tsAdmin->sendMessage(1, $command_info['clientId'], "Muszisz podać poprawną nazwę funkcji");
+ }
+}else {
+	$tsAdmin->sendMessage(1, $command_info['clientId'], "Musisz podać conajmniej jeden argument");
 }
 ?>

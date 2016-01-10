@@ -1,25 +1,37 @@
-# Multibot2 #
+# Ts3-Multibot-Engine #
 
-Multibot przeznaczony dla serwerów TeamSpeak 3.
+Engine for ts3 multibot
 
-### Zalety ###
+### Advantages ###
 
-* Skalowalność
-* Wydajność 
-* Możliwość uruchomienia nieskończonej ilości instancji (Procesów)
-* Obsługa komend z czatu serwerowego oraz prywatnej wiadomości
-* System permisji komend
-* Łatwość dodawania nowych komend
-* Dynamiczne włączanie oraz wyłączanie pożądanych funkcji (Brak implementacji)
+* Performance
+* Scalability
+* Ability to run multiple processes
+* Operation commands
+* Permission system
+* Easy setup
+* Base on ts3admin.class
+* PHP7 compatible
+* Fully compatible with linux
 
-### Ważne informacje ###
+### Important Information ###
 
-* Multibot działa tylko w systemie linux z racji zastosowania wewnętrznego socketu
-* Poradniki dotyczące konfiguracji itp. możesz znaleźć na exus.ovh
-* Cały system multibota opiera się na ts3admin.class
+* To run Windows you need to run each process separately
+* If you want to create some function or command should fully rely on ts3admin.class
 
-## Konfiguracja ##
+## Configuration ##
 
-1. Pobierz repozytorium na swój serwerwer
-2. Edytuj odpowiednio plik core.ini z folderu "Configs"
-3. Uruchom rdzeń bota plikiem bot.sh z parametrem "start" (./bot.sh start)
+#### Linux ####
+To start the commands engine you must use "php core/core.php --lang eng --startmde commands".
+If you want to shut down multibot on linux you must use "killall php" or kill all screens with "ExusMultibot".
+Alternatively, you can use the script. "./multibot.sh start" and "./multibot.sh stop"
+
+#### Windows ####
+To start the commands engine you must use "php core/core.php --lang eng --startmde commands".
+If you use Windows to start the process of Multiboot you have to use "php core/core.php --lang eng --startmde multibot".
+
+### Creating a new function ###
+All you have to do to create a new function to write it on the basis "functionExample.class.php" and to create a configuration file based on "ExampleConfigFile.conf" with the same name as This property has a function. If wyszstko perform properly and put configuration in the "config/functions" and the file functions in the "functions" should work properly.
+
+### Creating a new command ###
+To create a new command you need to write it based on the files "commandExample" and put it in the folder "commands". If you've done everything correctly, everything should work properly.

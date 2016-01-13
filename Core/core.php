@@ -74,6 +74,8 @@ $vars = Array(
   'welcomeMessage' => Array('clientList', 'serverInfo'),
   'adminchannelstatus' => Array('clientList'),
   'channelChecker' => Array('clientList', 'serverInfo', 'channelList'),
+  'blockRecord' => Array('clientList'),
+  'advertisement' => Array(),
 );
 
 $commands_list = Array(

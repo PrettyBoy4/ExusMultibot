@@ -43,20 +43,20 @@ $available_startmodes = Array(
 
 $paths = Array(
   "files" => Array(
-    "ts3admin" => "core/classes/ts3admin.class.php",
-    "commands-core" => "core/classes/commands-core.class.php",
-    "multibot-core" => "core/classes/multibot-core.class.php",
-    "exus-lib" => "core/classes/exus-lib.php",
-    "base-object" => "core/classes/base.class.php",
-    "general-config" => "configs/general-config.conf",
-    "permissions" => "configs/permissions.conf",
-    "multibot-commands" => "core/multibot-commands.php"
+    "ts3admin" => "Core/classes/ts3admin.class.php",
+    "commands-core" => "Core/classes/commands-core.class.php",
+    "multibot-core" => "Core/classes/multibot-core.class.php",
+    "exus-lib" => "Core/classes/exus-lib.php",
+    "base-object" => "Core/classes/base.class.php",
+    "general-config" => "Configs/general-config.conf",
+    "permissions" => "Configs/permissions.conf",
+    "multibot-commands" => "Core/multibot-commands.php"
   ),
   "folders" => Array(
     "functions" => "functions/",
-    "functions-configs" => "configs/functions/",
-    "configs" => "configs/",
-    "commands" => "commands/",
+    "functions-configs" => "Configs/functions/",
+    "configs" => "Configs/",
+    "commands" => "Commands/",
     "langs" => "langs/",
     "databases" =>"databases/",
   ),

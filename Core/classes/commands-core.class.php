@@ -82,7 +82,7 @@ class commandsCore extends baseObject {
     print "\n";
     $this->addInfo("Uruchamianie instancji o id: " . $this->instance_list['id']);
 
-    $result = shell_exec("screen -dmS ExusMultibotInstance php " . $this->paths['files']['multibot-core']);
+    $result = shell_exec("screen -dmS ExusMultibotInstance php " . $this->paths['files']['core'] . " --startmode multibot --lang pl");
 
     if($result == "[screen is terminated]") {
       $this->addError("Nie udało się uruchomić instancji o id " . $this->instance_list['id']);

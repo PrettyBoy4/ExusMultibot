@@ -9,5 +9,5 @@ if [ $1 = 'stop' ]
 
 if [ $1 = 'start' ]
     then
-	     screen -A -m -d -S ExusMultibot php Core/commands-core.php
+	     screen -A -m -d -S ExusMultibot php Core/core.php --startmode commands --lang pl
     fi

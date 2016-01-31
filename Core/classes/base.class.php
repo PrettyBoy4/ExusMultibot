@@ -362,7 +362,7 @@ class baseObject {
       $this->addInfo($lang['base']['server_select_success']);
     }
 
-    $this->socket = socket_create(AF_INET, SOCK_STREAM, 0);
+    $this->socket = socket_create(AF_UNIX, SOCK_STREAM, 0);
     if(!$this->socket)  {
       $this->addError("/n". $lang['base']['socket_create_error'], true);
     }else {
@@ -379,7 +379,11 @@ class baseObject {
         $this->addInfo($lang['base']['change_name_success']);
       }
 
-      if(!socket_bind($this->socket, 'localhost', 12345)) {
+      if(file_exists("socket.sock")) {
+	unlink("socket.sock");
+      }
+
+      if(!socket_bind($this->socket, "socket.sock")) {
         $this->addError($lang['base']['socket_bind_error'], true);
       }else {
         $this->addInfo($lang['base']['socket_bind_success']);
@@ -388,7 +392,7 @@ class baseObject {
       $this->setConfig($object_type);
     }elseif(isset($object_type) && ($object_type == "multibot")) {
 
-      if(!socket_connect($this->socket, 'localhost', 12345)) {
+      if(!socket_connect($this->socket, "socket.sock")) {
         $this->addError($lang['base']['instance_connect_error'], false);
       }else {
         $this->addInfo($lang['base']['instance_connect_success']);

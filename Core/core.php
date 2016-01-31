@@ -43,6 +43,7 @@ $available_startmodes = Array(
 
 $paths = Array(
   "files" => Array(
+    "core" => "Core/core.php",
     "ts3admin" => "Core/classes/ts3admin.class.php",
     "commands-core" => "Core/classes/commands-core.class.php",
     "multibot-core" => "Core/classes/multibot-core.class.php",

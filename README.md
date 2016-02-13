@@ -35,3 +35,6 @@ All you have to do to create a new function to write it on the basis "functionEx
 
 ### Creating a new command ###
 To create a new command you need to write it based on the files "commandExample" and put it in the folder "commands". If you've done everything correctly, everything should work properly.
+
+### License
+MIT

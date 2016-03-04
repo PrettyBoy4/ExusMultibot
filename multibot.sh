@@ -1,3 +1,4 @@
+/multibot.sh start
 if [ $1 = 'stop' ]
     then
       NAZWA=`screen -list | grep 'ExusMultibotInstance' | cut -d . -f1`
